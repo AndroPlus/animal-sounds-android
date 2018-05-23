@@ -1,0 +1,5 @@
+package com.androplus.common;
+
+public enum Platform {
+	GOOGLE_PLAY, AMAZON, SAMSUNG;
+}

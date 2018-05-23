@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+
+    defaultConfig {
+        applicationId "com.androplus.AnimalBeats"
+        minSdkVersion 16
+        targetSdkVersion 25
+
+        versionCode 12
+        versionName '3.3'
+
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard.cfg'
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def date = new Date();
+                    def formattedDate = date.format('yyyyMMddHHmmss')
+                    output.outputFile = new File(output.outputFile.parent,
+                            output.outputFile.name.replace("-release", "-" + formattedDate)
+                    )
+                }
+            }
+
+        }
+    }
+    //Bug: http://stackoverflow.com/a/20675331
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude '.readme'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
+    aaptOptions {
+        additionalParameters "--no-version-vectors"
+    }
+
+}
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+
+    compile project(':AndroCommonLibs')
+    compile project(':IAP')
+    compile project(':andro_ads')
+    compile project(':animalBeats-Lib')
+
+    // Multi-dex Lib
+    compile 'com.android.support:multidex:1.0.1'
+}

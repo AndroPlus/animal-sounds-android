@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../AndroCommon/AndroCommonLibs/AndroCommonLibs.iml" filepath="$PROJECT_DIR$/../AndroCommon/AndroCommonLibs/AndroCommonLibs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AnimalBeats/AnimalBeats.iml" filepath="$PROJECT_DIR$/AnimalBeats/AnimalBeats.iml" />
+      <module fileurl="file://$PROJECT_DIR$/AnimalBeats-Studio.iml" filepath="$PROJECT_DIR$/AnimalBeats-Studio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../IAP_Studio/IAP/IAP.iml" filepath="$PROJECT_DIR$/../IAP_Studio/IAP/IAP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../AndroAds_Studio/andro_ads/andro_ads.iml" filepath="$PROJECT_DIR$/../AndroAds_Studio/andro_ads/andro_ads.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../AnimalBeats-Lib-Studio/app/animalBeats-Lib.iml" filepath="$PROJECT_DIR$/../AnimalBeats-Lib-Studio/app/animalBeats-Lib.iml" />
+    </modules>
+  </component>
+</project>

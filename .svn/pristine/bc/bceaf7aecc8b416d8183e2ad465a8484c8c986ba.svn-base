@@ -1,0 +1,6 @@
+include ':AnimalBeats', ':AndroCommonLibs', ':IAP', ':andro_ads', ':animalBeats-Lib'
+
+project(':AndroCommonLibs').projectDir = new File(settingsDir, '../AndroCommons/AndroCommonLibs')
+project(':IAP').projectDir = new File(settingsDir, '../AndroIAP/IAP')
+project(':andro_ads').projectDir = new File(settingsDir, '../AndroAds/andro_ads')
+project(':animalBeats-Lib').projectDir=new File(settingsDir,'../AnimalBeats-Lib-Studio/app')

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tnhd="http://schemas.android.com/apk/res-auto" >
+    
+     <item android:id="@+id/action_animal_list"
+          android:icon="@drawable/ic_btn_options"
+          android:title="@string/animal_list"
+          tnhd:showAsAction="ifRoom|withText" />
+     
+      <item android:id="@+id/action_crosspromote"
+          android:icon="@drawable/info"
+          android:title="@string/more_apps_from_andro_"
+          tnhd:showAsAction="ifRoom|withText" />
+          
+</menu>

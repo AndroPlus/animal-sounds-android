@@ -1,0 +1,133 @@
+/*******************************************************************************
+ * Copyright 2011-2013 Sergey Tarasevich
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+package com.androplus.AnimalBeats;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.app.Application;
+import android.content.Context;
+import android.graphics.Typeface;
+import android.os.Build;
+import android.support.multidex.MultiDex;
+
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.MemoryCache;
+import com.nostra13.universalimageloader.cache.memory.impl.LRULimitedMemoryCache;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+
+/**
+ * @author Sergey Tarasevich (nostra13[at]gmail[dot]com)
+ */
+public class ApplicationManager extends Application {
+	 private static GoogleAnalytics mGa;
+	  private static Tracker mTracker;
+	  
+	// The following line should be changed to include the correct property id.
+	  private static final String PROPERTY_ID = "UX-XXXXXXXX-X";
+
+	  //Logging TAG
+	  private static final String TAG = "MyApp";
+
+	  public static int GENERAL_TRACKER = 0;
+
+	  public enum TrackerName {
+	  APP_TRACKER, // Tracker used only in this app.
+	  GLOBAL_TRACKER, // Tracker used by all the apps from a company. eg: roll-up tracking.
+	  ECOMMERCE_TRACKER, // Tracker used by all ecommerce transactions from a company.
+	  }
+
+	  HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
+	synchronized Tracker getTracker(TrackerName trackerId) {
+		if (!mTrackers.containsKey(trackerId)) {
+
+			GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+			Tracker t = (trackerId == TrackerName.APP_TRACKER) ? analytics.newTracker(R.xml.app_tracker)
+					: (trackerId == TrackerName.GLOBAL_TRACKER) ? analytics.newTracker(PROPERTY_ID)
+					: analytics.newTracker(R.xml.global_tracker);
+			mTrackers.put(trackerId, t);
+
+		}
+		return mTrackers.get(trackerId);
+	}
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(base);
+		MultiDex.install(this);
+	}
+
+	public synchronized void sendGA(Tracker tracker, String screen_name) {
+		tracker.setScreenName(screen_name);
+		tracker.send(new HitBuilders.AppViewBuilder().build());
+	}
+
+
+	private static Context applicationContext;
+
+	public static void setCurrentContext(Context ctx) {
+		applicationContext = ctx;
+	}
+
+	public static Context getCurrentContext() {
+		return applicationContext;
+	}
+
+
+
+
+
+
+
+	@Override
+	public void onCreate() {		
+		super.onCreate();
+		initImageLoader(getApplicationContext());
+	}
+
+	public static void initImageLoader(Context context) {
+		int memoryCacheSize = (int) (Runtime.getRuntime().maxMemory() / 8);
+
+		MemoryCache memoryCache;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
+			memoryCache = new LruMemoryCache(memoryCacheSize);
+		} else {
+			memoryCache = new LRULimitedMemoryCache(memoryCacheSize);
+		}
+
+		// This configuration tuning is custom. You can tune every option, you may tune some of them, 
+		// or you can create default configuration by
+		//  ImageLoaderConfiguration.createDefault(this);
+		// method.
+		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(context)
+				.threadPriority(Thread.NORM_PRIORITY - 2)
+				.memoryCache(memoryCache)
+				.denyCacheImageMultipleSizesInMemory()
+				.discCacheFileNameGenerator(new Md5FileNameGenerator())				
+				.tasksProcessingOrder(QueueProcessingType.LIFO)
+				.build();
+		// Initialize ImageLoader with configuration.
+		ImageLoader.getInstance().init(config);
+	}
+	
+	
+	
+	
+}

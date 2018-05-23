@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Animal Sounds</string>
+    <string name="app_name_kids">Animal Sounds for Kids</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+     <string name="nothing"></string>
+
+     <string name="animal_json_file">animalBeats_v1.0.json</string>
+
+     <string name="kids_font">fonts/kids.ttf</string>
+    <string name="admob_publisher">pub-8636867347011747</string>
+    <string name="more_apps_from_andro_">More apps from Andro+_</string>
+    
+     <!--  cross Promote -->
+     <string name="cp_xml_type">GEN</string>
+     <string name="cp_xml_file">cp.xml</string>
+     <string name="font_size_default"></string>
+     <string name="animal_list">Animal List</string>
+     
+          <!-- MOPUB & OTHERS -->	
+     <string name="mopub_mobile_banner">bd2ef99a3156444cb9ad4a45ba399cf0</string>
+     <string name="mopub_mobile_fullscreen">45381416a36347c08b9422729f860470</string>
+     
+     <string name="mopub_tablet_banner">db1060318ffb4d079dc6999c54f61833</string>
+     <string name="mopub_tablet_fullscreen">85dd2cb2bf6f4087834510c38c4fa0d9</string>
+     
+     
+    <string name="admob_banner_key">ca-app-pub-8636867347011747/3445558912</string>
+    <string name="admob_fullscreeen_key">ca-app-pub-8636867347011747/8656728115</string>
+     
+     <string name="inmobi_banner">99c05bb67419422ea7f3a8efbe888786</string>
+     <string name="inmobi_fullscreen">99c05bb67419422ea7f3a8efbe888786</string>
+     
+     <string name="mm_banner">189878</string>
+     <string name="mm_fullscreen">189879</string>
+</resources>

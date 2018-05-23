@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Animal Sounds</string>
+    <string name="app_name_kids">Animal Sounds for Kids</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+     <string name="nothing"></string>
+
+     <string name="animal_json_file">animalBeats_v1.0.json</string>
+
+     <string name="kids_font">fonts/kids.ttf</string>
+    <string name="admob_publisher">pub-8636867347011747</string>
+    <string name="more_apps_from_andro_">More apps from Andro+_</string>
+
+    <string name="fav_txt">Favourite</string>
+    <string name="share_txt">Share</string>
+    <string name="rm_txt">Remove Ads</string>
+    <string name="mapps_txt">More Apps</string>
+    <string name="moreM_txt">more Menu</string>
+    
+     <!--  cross Promote -->
+     <string name="cp_xml_type">GEN</string>
+     <string name="cp_xml_file">cp.xml</string>
+     <string name="font_size_default"></string>
+     <string name="animal_list">Animal List</string>
+
+    <!-- IAP -->
+    <string name="base64_encoded_publickey">MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzvwUtLdjOoXCbMxfnEUz0JUFaPcZfN23e3tzmuWQQF0ghHZdJpcqwKiGWPYBlTkMQln3ap6xNfWbbPEmqhcN0S2FO0SeIbB7uTWMrwP8GAfyb0UDh6wRkXC7ZKR+Nq3n9HE/iywfwBoRHXbOqvdThItAyLlIUDPdChaoc3d70TNlZn+2/mrik8maQbC5dpQ5efMi+luteJhk/8HgSp/yAjt+kB38T3kF20kSLTG33W3fKnpe8lYupcwU/1dojY7lixL5dOVckjeA2QFSBbU/FFhHyZMfmOcOEPD0UUJGa1ITRrWGbYqIqaQgnExT+vQ+ttwocN9KmTxXdciVAwK08QIDAQAB</string>
+    <string name="adfree_sku">remove_ads_animal_beats</string>
+    <string name="iap_title">Remove Ads!</string>
+    <string name="iap_msg">Upgrade now to enjoy an ad-free experience! Would you like to proceed?</string>
+    <string name="iap_restore">Restore Purchases</string>
+    <string name="iap_upgrade">Upgrade Now</string>
+    <string name="iap_success_title">Upgrade Successful!</string>
+    <string name="iap_success_message">You have successfully upgraded to the Ad-free version!</string>
+    <string name="iap_failure_title">Upgrade Failure!</string>
+    <string name="iap_failure_message">An error occurred while trying to upgrade(Ad-free)! Please try again later.</string>
+    <string name="iap_restore_success_title">Successfully restored purchase!</string>
+    <string name="iap_restore_success_message">Your purchase has been successfully restored! You are now using the Ad-Free version!</string>
+    <string name="iap_restore_failure_title">Error!</string>
+    <string name="iap_restore_failure_message">An error occurred while trying to restore your purchase! Please try again later.</string>
+    <string name="iap_restore_no_purchase_title">No Purchases!</string>
+    <string name="iap_restore_no_purchase_message">You have not purchased any items yet.</string>
+    <string name="cannot_connect_title">Can\'t connect to Market</string>
+    <string name="cannot_connect_message">This app cannot connect to Market.
+        Your version of Market may be out of date or connection issue.
+     	You can continue to use this app but you
+    	won\'t be able to make purchases now.</string>
+    <string name="hintext">Search: Idly,Chicken..etc</string>
+
+     
+          <!-- MOPUB & OTHERS -->	
+     <string name="mopub_mobile_banner">bd2ef99a3156444cb9ad4a45ba399cf0</string>
+     <string name="mopub_mobile_fullscreen">45381416a36347c08b9422729f860470</string>
+     
+     <string name="mopub_tablet_banner">db1060318ffb4d079dc6999c54f61833</string>
+     <string name="mopub_tablet_fullscreen">85dd2cb2bf6f4087834510c38c4fa0d9</string>
+     
+     
+    <string name="admob_banner_id">ca-app-pub-8636867347011747/3445558912</string>
+    <string name="admob_fullscreen_id">ca-app-pub-8636867347011747/8656728115</string>
+
+    <string name="mopub_mobile_reward">bd39bc1191ca4f18b17e7b48996037b7</string>
+    <string name="mopub_tablet_reward">ca2237d0f3014f929b7be2a3fb571cc2</string>
+
+    <!--INMOBI-->
+
+    <string name="inmobi_account_id">3136511f6acb414382374cc36f440f66</string>
+     <string name="inmobi_banner_id">1431977018271737</string>
+     <string name="inmobi_fullscreen_id">1431977018272267</string>
+    <string name="inmobi_native_id"></string>
+    <string name="vungle"></string>
+     
+     <string name="mm_banner">189878</string>
+     <string name="mm_fullscreen">189879</string>
+
+    <string name="reward_main_txt">15 நிமிடம் விளம்பரம் இல்லாமல் தொடர வேண்டுமா?</string>
+    <string name="reward_watch_txt">சிறு வீடியோவை பாருங்கள்!</string>
+    <string name="reward_cancel_txt">வேண்டாம்</string>
+</resources>

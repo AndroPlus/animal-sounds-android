@@ -1,0 +1,54 @@
+package com.androplus.common;
+
+import android.app.Activity;
+import android.view.ViewGroup;
+
+import com.androplus.AnimalBeats.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+
+public class AdmobAds {
+	static AdView adView;
+	public static InterstitialAd interstitial;
+	public static void showAd(Activity ctx, ViewGroup adContainer){
+
+		// Create Admob Ad View		
+	//   adView = new AdView(ctx, adType, ctx.getString(R.string.admobkey));
+	    adView = new AdView(ctx);
+	    adView.setAdUnitId(ctx.getString(R.string.admob_banner_key));
+	    adView.setAdSize(AdSize.SMART_BANNER);
+	    adContainer.removeAllViews();
+	    
+	    // Add the adView to it
+	    adContainer.addView(adView);
+	    
+	    AdRequest request = new AdRequest.Builder()
+	    .addTestDevice("D942398B08FE1F32BB05C7DEFB5C7119")
+	    .build();
+	    /*AdRequest request = new AdRequest();
+	    request.addTestDevice("B83BE2AF80F389CDCA666FFF2365E9AA");*/
+	    // Load the adView with the ad request.
+	    adView.loadAd(request);		
+	}
+	
+	public static InterstitialAd initInterstitialAd(Activity ctx){		
+		 // Create the interstitial
+		  interstitial = new InterstitialAd(ctx);
+		  interstitial.setAdUnitId(ctx.getString(R.string.admob_fullscreeen_key));
+		
+		  // Create ad request
+	    
+		  
+		    AdRequest request = new AdRequest.Builder()
+		    .addTestDevice("D942398B08FE1F32BB05C7DEFB5C7119")
+		    .build();
+		    
+		    // Begin loading your interstitial
+		    interstitial.loadAd(request);
+		    
+		    return interstitial;
+	    
+	}
+}

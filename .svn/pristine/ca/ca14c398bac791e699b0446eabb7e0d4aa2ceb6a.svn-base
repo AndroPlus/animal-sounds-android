@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Font" >
+        <ListPreference
+            android:entries="@array/textsize"
+            android:entryValues="@array/textsize_values"
+            android:key="fontSizeSettings"
+            android:summary="You can change font size from Small,Medium and Large"
+            android:title="Font Size" />
+    </PreferenceCategory>
+
+    <!--   <PreferenceCategory android:title="Coloring" >
+          <ListPreference
+              android:entries="@array/textcolor"
+              android:entryValues="@array/textcolor_values"
+              android:key="textColorSettings"
+              android:summary="You can change text color and background"
+              android:title="Color" />
+      </PreferenceCategory> -->
+
+</PreferenceScreen>

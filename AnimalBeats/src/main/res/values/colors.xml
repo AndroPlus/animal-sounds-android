@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ldrawer_color">#FFFFFF</color>
+    
+     <color name="light_gray">#c2c7cc</color>
+  <color name="dark_gray">#3d454c</color>
+  <color name="dark_gray_pressed">#373e44</color>
+  <color name="darker_gray">#1f2226</color>
+  
+  <color name="primarycolor">#ff33b5e5</color>
+  <color name="secondaryColor">#ff0099cc</color>
+
+    <color name="primary_dark_color">#ff388e3c</color>
+    <color name="primary_color">#ff4caf50</color>
+</resources>

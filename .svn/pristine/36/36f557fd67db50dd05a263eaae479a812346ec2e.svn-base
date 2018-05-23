@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.androplus.AnimalBeats"
+    android:versionCode="5"
+    android:versionName="2.2" >
+
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="21" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="com.google.android.gms.permission.ACTIVITY_RECOGNITION" />
+
+
+    <!-- Android Google Play Billing -->
+    <uses-permission android:name="com.android.vending.BILLING" />
+
+    <application android:name="com.androplus.AnimalBeats.ApplicationManager"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity android:screenOrientation="sensorPortrait"
+            android:name="com.androplus.AnimalBeats.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+          <activity
+            android:name="com.androplus.crosspromote.HouseApps"
+            android:configChanges="keyboard|keyboardHidden|orientation" />
+
+        <!-- ADMOB -->
+        <meta-data
+            android:name="com.google.android.gms.analytics.globalConfigResource"
+            android:resource="@xml/app_tracker" />
+        <meta-data
+            android:name="ADMOB_PUBLISHER_ID"
+            android:value="pub-8636867347011747" >
+        </meta-data>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
+
+        <!-- APPLOVIN -->
+        <meta-data
+            android:name="applovin.sdk.key"
+            android:value="3-23zQVWQ_UZNGpwuk9uLn9vr7xwEK8HIAKGbro0qGaCWO6P7GHT1RMtZIoocw4w5OBgDzh2DHElfL8obQFdtc" />
+
+        <!-- This flag enables verbose logging of AppLovin SDK -->
+        <meta-data
+            android:name="applovin.sdk.verbose_logging"
+            android:value="false" />
+
+        <activity android:name="com.applovin.adview.AppLovinInterstitialActivity" />
+        <activity android:name="com.applovin.adview.AppLovinConfirmationActivity" />
+
+        <!--INMOBI -->
+
+        <!--Required Activity for rendering ads in the embedded browser-->
+        <activity android:name="com.inmobi.rendering.InMobiAdActivity"
+            android:configChanges="keyboardHidden|orientation|keyboard|smallestScreenSize|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:hardwareAccelerated="true" />
+
+
+        <!--Required Receiver for enhanced targeting for better ads.-->
+
+        <receiver android:name="com.inmobi.commons.core.utilities.uid.ImIdShareBroadCastReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.inmobi.share.id" />
+            </intent-filter>
+        </receiver>
+
+        <service android:enabled="true" android:name="com.inmobi.signals.activityrecognition.ActivityRecognitionManager" />
+
+        <!-- MOPUb-->
+        <activity android:name="com.mopub.mobileads.MoPubActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name="com.mopub.mobileads.MraidActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name="com.mopub.common.MoPubBrowser" android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name="com.mopub.mobileads.MraidVideoPlayerActivity" android:configChanges="keyboardHidden|orientation|screenSize"/>
+
+        <!-- FB Ads-->
+        <activity android:name="com.facebook.ads.InterstitialAdActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
+
+
+    <!--  Required Activity for playback of Vungle video ads  -->
+    <!--<activity-->
+        <!--android:name="com.vungle.publisher.FullScreenAdActivity"-->
+        <!--android:configChanges="keyboardHidden|orientation|screenSize"-->
+        <!--android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>-->
+
+</application>
+
+</manifest>

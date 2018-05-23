@@ -1,0 +1,150 @@
+package com.androplus.AnimalBeats;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.PopupMenu.OnMenuItemClickListener;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+
+import com.androplus.appirater.Appirater;
+import com.androplus.crosspromote.HouseApps;
+import com.androplus.fragment.HomeFragment;
+import com.androplus.materialnavigationdrawer.MaterialNavigationDrawer;
+import com.androplus.updatechecker.UpdateChecker;
+import com.androplus.updatechecker.notice.Notice;
+
+
+public class MainActivity extends MaterialNavigationDrawer /*implements BaseSliderView.OnSliderClickListener*/{
+	private JSONArray subCategory;
+	JSONObject jsonObject;
+	JSONObject obj;
+	@Override
+	public void init(Bundle savedInstanceState) {
+		 // set cover background
+        this.setDrawerBackground(this.getResources().getDrawable(R.drawable.bamboo));
+        // set user photo and data
+       this.setUserPhoto(this.getResources().getDrawable(R.drawable.lion));
+       this.setSecondAccountPhoto(this.getResources().getDrawable(R.drawable.wolf));
+       this.setThirdAccountPhoto(this.getResources().getDrawable(R.drawable.tiger));
+     //  this.setUsername("AnimalSounds for Kids");
+       this.setUserEmail("Created by Andro+");
+
+        try {
+			jsonObject = new JSONObject(getFileFromAsset());
+			
+			for (int i = 0; i < jsonObject.getJSONArray("Parent").length(); i++) {
+				JSONObject obj = (JSONObject) jsonObject.getJSONArray("Parent").get(i);
+				//+" ("+obj.getJSONArray("SubCategory").length()+")"
+		        this.addSection(this.newSection(obj.getString("Title"), new HomeFragment(obj.getJSONArray(("SubCategory")))));
+			}
+			
+			Appirater.appLaunched(this);
+			
+			UpdateChecker checker = new UpdateChecker(this);
+			checker.setSuccessfulChecksRequired(5);
+			checker.setNotice(Notice.NOTIFICATION);
+			checker.start();
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+       
+	}
+	
+	private String getFileFromAsset()	{
+		BufferedReader reader = null;
+		StringBuffer strBuf = new StringBuffer();
+		try {
+		    reader = new BufferedReader(
+		        new InputStreamReader(getAssets().open(getString(R.string.animal_json_file)), "UTF-8")); 
+
+		    // do reading, usually loop until end of file reading 
+		    String mLine = reader.readLine();		    
+		    while (mLine != null) {
+		       //process line
+		    	 if(mLine!=null) strBuf.append(mLine); 
+		    	mLine = reader.readLine();
+		    }
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} finally {
+		    if (reader != null) {
+		         try {
+		             reader.close();
+		         } catch (IOException e) {
+		        	 e.printStackTrace();
+		         }
+		    }
+		}
+		return strBuf.toString();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		 MenuInflater inflater = getMenuInflater();
+		 inflater.inflate(R.menu.home_menu, menu);
+		   return super.onCreateOptionsMenu(menu);	
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem menuItem) {
+		int itemId = menuItem.getItemId();
+		if (itemId == R.id.action_animal_list) {
+			showAnimalListPopup();
+			return true;
+		}
+		else if (itemId == R.id.action_crosspromote) {
+			Intent intent = new Intent(this, HouseApps.class);
+			startActivity(intent);
+			return true;
+		}else  if(menuItem.getItemId() == android.R.id.home){
+			 finish();
+		 }
+		
+		return super.onOptionsItemSelected(menuItem);
+	}
+	
+	public void showAnimalListPopup() {
+	    View menuItemView = findViewById(R.id.action_animal_list);
+	    PopupMenu popup = new PopupMenu(this, menuItemView);
+	    try {
+	    obj = (JSONObject) jsonObject.getJSONArray("Parent").get(position);
+
+	    for(int i = 0; i < obj.getJSONArray("SubCategory").length(); i++){
+				popup.getMenu().add(Menu.NONE, i, Menu.NONE, obj.getJSONArray("SubCategory").getJSONObject(i).getString("Title"));
+	    }
+	    } catch (JSONException e) {
+			e.printStackTrace();
+		}
+	    
+	    popup.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+			
+			@Override
+			public boolean onMenuItemClick(MenuItem arg0) {
+				
+				try {
+					HomeFragment fragment = (HomeFragment) getCurrentSection().getTargetFragment();
+					fragment.mDemoSlider.moveToSlider(arg0.getItemId());
+					fragment.mDemoSlider.stopAutoCycle();
+					fragment.playAudio(obj.getJSONArray("SubCategory").getJSONObject(arg0.getItemId()).getString("Title").replace(" ", "").toLowerCase());
+          		} catch (JSONException e) {
+          			e.printStackTrace();
+          		}
+				
+				return false;
+			}
+		});
+	    popup.show();
+	}
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tnhd="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/action_volume"
+        android:icon="@drawable/volume_bt"
+        android:title="@string/volume"
+        tnhd:showAsAction="always" />
+
+     <item android:id="@+id/action_animal_list"
+         android:icon="@android:drawable/ic_menu_more"
+          android:title="@string/animal_list"
+          tnhd:showAsAction="always" />
+     
+      <item android:id="@+id/action_moreMenu"
+          android:orderInCategory="100"
+          android:icon="@drawable/ic_btn_options"
+          android:title="more Menu"
+          tnhd:showAsAction="always">
+          <menu>
+
+        <item android:id="@+id/action_crosspromote"
+            android:icon="@drawable/info"
+            android:title="@string/mapps_txt"
+            tnhd:showAsAction="ifRoom" />
+        <item
+              android:id="@+id/removeAdsBt"
+              tnhd:showAsAction="ifRoom"
+              android:icon="@drawable/removeads"
+              android:title="@string/rm_txt"/>
+
+              <item
+                  android:id="@+id/privacyPolBt"
+                  tnhd:showAsAction="ifRoom"
+                  android:icon="@android:drawable/ic_dialog_info"
+                  android:title="@string/privacy_policy"/>
+
+       </menu>
+
+    </item>>
+          
+</menu>

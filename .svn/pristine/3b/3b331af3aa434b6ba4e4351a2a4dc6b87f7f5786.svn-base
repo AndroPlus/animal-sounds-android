@@ -1,0 +1,211 @@
+package com.androplus.fragment;
+
+import java.io.IOException;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import android.content.res.AssetFileDescriptor;
+import android.graphics.Typeface;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import com.androplus.AnimalBeats.AnimalListAdapter;
+import com.androplus.AnimalBeats.ChildAnimationExample;
+import com.androplus.AnimalBeats.MainActivity;
+import com.androplus.AnimalBeats.R;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
+
+/**
+ * Created by neokree on 24/11/14.
+ */
+public class HomeFragment extends Fragment implements BaseSliderView.OnSliderClickListener, OnCompletionListener{
+
+	public SliderLayout mDemoSlider;
+	private JSONArray mJsonArray; 
+	public MediaPlayer player;
+	ViewGroup adContainer  = null;
+	MainActivity activity;
+	public HomeFragment(JSONArray jsonArray) {
+		mJsonArray = jsonArray;
+	} 
+	 
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+	}
+	
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    	View root = (ViewGroup) inflater.inflate(R.layout.activity_main, null);
+    	activity = (MainActivity) getActivity();
+    	initUI(root);
+        return root;
+    }
+    
+    private void initUI(View view){
+     adContainer = (ViewGroup) view.findViewById(R.id.adContainer);
+    	  mDemoSlider = (SliderLayout)view.findViewById(R.id.slider);
+    	  if (player == null) {
+  			player = new MediaPlayer();
+  		}
+    	  
+    	  JSONObject obj;
+			try {
+		          for(int i = 0; i < mJsonArray.length(); i++){
+		        	
+						obj = mJsonArray.getJSONObject(i);
+					
+		              TextSliderView textSliderView = new TextSliderView(getActivity());
+		              // initialize a SliderLayout
+		              textSliderView
+		                      .description(obj.getString("Title"))
+		                      .image("file:///android_asset/"+obj.getString("Icon"))
+		                      .setScaleType(BaseSliderView.ScaleType.CenterInside).descFont(Typeface.createFromAsset(getActivity().getAssets(), getActivity().getString(R.string.kids_font)))                     
+		                      .setOnSliderClickListener(this);
+		              //add your extra information
+		              textSliderView.getBundle()
+		                      .putInt("Index",i);
+		              
+		              
+		
+		             mDemoSlider.addSlider(textSliderView);
+		          }
+          
+			} catch (JSONException e) {
+				e.printStackTrace();
+		}
+			
+          mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+          mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+          //mDemoSlider.setCustomIndicator((PagerIndicator) view.findViewById(R.id.custom_indicator));
+          mDemoSlider.setCustomAnimation(new ChildAnimationExample());
+          mDemoSlider.setDuration(4000);
+          mDemoSlider.stopAutoCycle();
+          mDemoSlider.setOnSliderChange(new SliderLayout.SliderChangeListener(){
+
+			@Override
+			public void onSlide(int position) {
+				//Toast.makeText(getActivity(), position+"", Toast.LENGTH_SHORT).show();
+				StopAudio();
+			}
+        	  
+          });
+          
+          ListView l = (ListView)view.findViewById(R.id.transformers);
+          l.setAdapter(new AnimalListAdapter(getActivity(), mJsonArray));
+          l.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+              @Override
+              public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            	  try {
+            		mDemoSlider.moveToSlider(position);
+            		 mDemoSlider.stopAutoCycle();
+          			playAudio(mJsonArray.getJSONObject(position).getString("Title").replace(" ", "").toLowerCase());
+          		} catch (JSONException e) {
+          			e.printStackTrace();
+          		}
+              }
+          });
+          
+          activity.showAd(true, adContainer);
+    }
+    
+    public void playAudio(String filename) {
+
+		try {
+
+			if (player == null) {
+				player = new MediaPlayer();
+			}
+
+			AssetFileDescriptor descriptor;
+			try {
+
+				descriptor = getActivity().getAssets().openFd(filename + ".mp3");
+				player.reset();
+				player.setDataSource( descriptor.getFileDescriptor(), descriptor.getStartOffset(), descriptor.getLength() );
+				//player.setDataSource(this, Uri.parse("android.resource://com.androplus.AnimalBeats/raw/"+ mAnimalArray[i]));
+				player.setLooping(false); // Set looping
+				player.setVolume(100, 100);
+				//descriptor.close();
+				player.prepare();
+
+				player.setOnCompletionListener(this);
+
+				player.start();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}finally{
+				activity.showAd(false, null);
+			}
+			
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+    
+    public void removeAdContainer(View view){
+		adContainer.setVisibility(View.GONE);
+	}
+
+    @Override
+    public void onDestroy() {
+    	
+    	if (player != null && player.isPlaying() == true) {
+			player.reset();
+			player = null;
+		}
+    	
+    	super.onDestroy();
+    	
+    }
+	public void StopAudio() {
+		if (player != null && player.isPlaying() == true) {
+			player.reset();
+		}
+	}
+	
+	public void onPause() {
+		super.onPause();
+		//StopAudio();
+	}
+	
+	
+    @Override
+    public void onResume() {
+    	super.onResume();
+    }
+
+	@Override
+	public void onSliderClick(BaseSliderView slider) {
+		try {
+			playAudio(mJsonArray.getJSONObject(slider.getBundle().getInt("Index")).getString("Title").replace(" ", "").toLowerCase());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		//Toast.makeText(getActivity(), slider.getBundle().getInt("Index") + "",Toast.LENGTH_SHORT).show();
+		
+	}
+
+	@Override
+	public void onCompletion(MediaPlayer arg0) {
+		mDemoSlider.nextSlider();
+	}
+
+	
+    
+    
+}
